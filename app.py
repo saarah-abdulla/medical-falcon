@@ -16,12 +16,18 @@ try:
 except Exception as e:
     st.error(f"Error loading model: {e}")
 
-st.title("Falcon Fine-Tuned Model Inference")
+# ✅ Create a text-generation pipeline
+text_gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
-# Example inference
-user_input = st.text_input("Enter your prompt:")
-if user_input:
-    inputs = tokenizer(user_input, return_tensors="pt")
-    outputs = model.generate(**inputs)
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    st.write(f"Generated Text: {result}")
+st.title("🦅 Falcon-7B Medical Chatbot")
+
+user_input = st.text_area("Enter your prompt:")
+
+if st.button("Generate"):
+    if user_input:
+        with st.spinner("Generating response..."):
+            response = text_gen(user_input, max_length=150, do_sample=True, top_k=50, top_p=0.95,
+                                return_full_text=False,eos_token_id=tokenizer.eos_token_id, early_stopping=True)
+            st.success(response[0]["generated_text"])
+    else:
+        st.warning("Please enter a prompt!")
