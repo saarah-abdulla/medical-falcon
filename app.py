@@ -1,24 +1,25 @@
 import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
-from transformers import BitsAndBytesConfig
+# from transformers import BitsAndBytesConfig
 
 
 # ✅ Load fine-tuned model & tokenizer
 MODEL_NAME = "saarah-a/falcon-finetuned"
 
 
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_compute_dtype=torch.float16,
-    bnb_4bit_use_double_quant=True
-)
+# bnb_config = BitsAndBytesConfig(
+#     load_in_4bit=True,
+#     bnb_4bit_compute_dtype=torch.float16,
+#     bnb_4bit_use_double_quant=True
+# )
 
 @st.cache_resource  # Cache model to avoid reloading on every run
 def load_model():
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME, device_map="auto", torch_dtype=torch.float16, offload_folder = 'offload_dir',
-        quantization_config=bnb_config
+        MODEL_NAME, device_map="cpu"
+        # torch_dtype=torch.float16, offload_folder = 'offload_dir',
+        # quantization_config=bnb_config
     )
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     return model, tokenizer
