@@ -4,4 +4,5 @@ accelerate
 bitsandbytes
 huggingface_hub
 safetensors
+peft
 streamlit
