@@ -1,6 +1,5 @@
 torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-transformers==4.38.1
-accelerate==0.27.2
-
-auto-gptq
-streamlit==1.31.1
+transformers
+accelerate
+bitsandbytes-cpu
+streamlit
