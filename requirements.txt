@@ -1,4 +1,6 @@
 streamlit
 torch
-transformers accelerate git+https://github.com/huggingface/peft.git
+transformers 
+accelerate 
+git+https://github.com/huggingface/peft.git
 bitsandbytes
