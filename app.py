@@ -1,6 +1,8 @@
 import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
+from huggingface_hub import hf_hub_download
+
 # from transformers import BitsAndBytesConfig
 
 
@@ -19,7 +21,7 @@ def load_model():
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME, device_map="auto",
         torch_dtype=torch.float16, offload_folder = 'offload_dir',
-        from_safetensors=True
+        # from_safetensors=True
         # quantization_config=bnb_config
     )
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
