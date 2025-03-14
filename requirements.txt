@@ -1,5 +1,5 @@
 streamlit
-torch==2.2.0+cu118 --index-url https://download.pytorch.org/whl/cu118
+torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 transformers 
 accelerate 
 bitsandbytes
