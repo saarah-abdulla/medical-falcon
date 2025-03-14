@@ -9,7 +9,7 @@ model_repo = "saarah-a/falcon-finetuned"
 # Load model and tokenizer from Hugging Face
 try:
     # Load the tokenizer from the Hugging Face model repo
-    tokenizer = AutoTokenizer.from_pretrained(model_repo)
+    tokenizer = AutoTokenizer.from_pretrained(model_repo, from_safetensors = True)
     
     # Load the model from the Hugging Face model repo
     model = AutoModelForCausalLM.from_pretrained(model_repo)
