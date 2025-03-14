@@ -17,7 +17,7 @@ bnb_config = BitsAndBytesConfig(
 @st.cache_resource  # Cache model to avoid reloading on every run
 def load_model():
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME, device_map="auto"
+        MODEL_NAME, device_map="auto",
         torch_dtype=torch.float16, offload_folder = 'offload_dir',
         quantization_config=bnb_config
     )
