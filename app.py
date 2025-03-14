@@ -21,6 +21,7 @@ def load_model():
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME, device_map="auto",
         torch_dtype=torch.float16, offload_folder = 'offload_dir',
+        use_cache=True
         # from_safetensors=True
         # quantization_config=bnb_config
     )
