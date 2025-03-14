@@ -6,12 +6,12 @@ from peft import PeftModel
 
 # Load base model
 base_model_name = "tiiuae/Falcon3-7B-Instruct"
-base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
+base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device='cpu')
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
 # Load adapter
 adapter_name = "saarah-a/falcon-finetuned"  # Your fine-tuned model
-model = PeftModel.from_pretrained(base_model, adapter_name)
+model = PeftModel.from_pretrained(base_model, adapter_name, device='cpu')
 
 # # Model repository
 # model_repo = "saarah-a/falcon-finetuned"
