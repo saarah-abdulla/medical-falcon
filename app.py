@@ -6,7 +6,7 @@ from peft import PeftModel
 
 # Load base model
 base_model_name = "tiiuae/Falcon3-7B-Instruct"
-base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device='cpu')
+base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
 # Load adapter
