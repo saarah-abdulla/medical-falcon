@@ -9,10 +9,10 @@ model_repo = "saarah-a/falcon-finetuned"
 # Load model and tokenizer from Hugging Face
 try:
     # Load the tokenizer from the Hugging Face model repo
-    tokenizer = AutoTokenizer.from_pretrained(model_repo, from_safetensors = True)
+    tokenizer = AutoTokenizer.from_pretrained(model_repo)
     
     # Load the model from the Hugging Face model repo
-    model = AutoModelForCausalLM.from_pretrained(model_repo)
+    model = AutoModelForCausalLM.from_pretrained(model_repo, from_safetensors = True)
 
 except Exception as e:
     st.error(f"Error loading model: {e}")
