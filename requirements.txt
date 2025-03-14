@@ -1,5 +1,8 @@
-streamlit
-torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-transformers 
-accelerate 
-bitsandbytes
+# Core ML Libraries
+torch==2.2.0+cu118 --index-url https://download.pytorch.org/whl/cu118  # Change cu118 to cu121 if using CUDA 12.1
+transformers==4.38.1
+accelerate==0.27.2
+bitsandbytes==0.42.0  # For 8-bit quantization
+
+# Streamlit for the Web App
+streamlit==1.31.1
