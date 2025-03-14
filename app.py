@@ -2,20 +2,30 @@ import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from safetensors import safe_open
 from huggingface_hub import hf_hub_download
+from peft import PeftModel
 
-# Model repository
-model_repo = "saarah-a/falcon-finetuned"
+# Load base model
+base_model_name = "tiiuae/Falcon3-7B-Instruct"
+base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
+tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-# Load model and tokenizer from Hugging Face
-try:
-    # Load the tokenizer from the Hugging Face model repo
-    tokenizer = AutoTokenizer.from_pretrained(model_repo)
+# Load adapter
+adapter_name = "saarah-a/falcon-finetuned"  # Your fine-tuned model
+model = PeftModel.from_pretrained(base_model, adapter_name)
+
+# # Model repository
+# model_repo = "saarah-a/falcon-finetuned"
+
+# # Load model and tokenizer from Hugging Face
+# try:
+#     # Load the tokenizer from the Hugging Face model repo
+#     tokenizer = AutoTokenizer.from_pretrained(model_repo)
     
-    # Load the model from the Hugging Face model repo
-    model = AutoModelForCausalLM.from_pretrained(model_repo, from_safetensors = True)
+#     # Load the model from the Hugging Face model repo
+#     model = AutoModelForCausalLM.from_pretrained(model_repo, from_safetensors = True)
 
-except Exception as e:
-    st.error(f"Error loading model: {e}")
+# except Exception as e:
+#     st.error(f"Error loading model: {e}")
 
 # ✅ Create a text-generation pipeline
 text_gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
