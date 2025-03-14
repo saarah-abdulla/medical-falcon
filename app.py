@@ -18,7 +18,8 @@ MODEL_NAME = "saarah-a/falcon-finetuned"
 def load_model():
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME, device_map="auto",
-        torch_dtype=torch.float16, offload_folder = 'offload_dir'
+        torch_dtype=torch.float16, offload_folder = 'offload_dir',
+        from_safetensors=True
         # quantization_config=bnb_config
     )
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
