@@ -1,6 +1,7 @@
 import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from safetensors import safe_open
+from huggingface_hub import hf_hub_download
 
 # Model repository
 model_repo = "saarah-a/falcon-finetuned"
