@@ -3,3 +3,4 @@ transformers>=4.39.0
 torch>=2.0.1
 accelerate>=0.21.0
 bitsandbytes>=0.41.0
+peft>=0.10.0
