@@ -15,7 +15,7 @@ def load_model():
         bnb_4bit_compute_dtype=torch.float16,
         bnb_4bit_use_double_quant=True
     )
-      base_model = AutoModelForCausalLM.from_pretrained(
+    base_model = AutoModelForCausalLM.from_pretrained(
         BASE_MODEL,
         device_map="auto",
         torch_dtype=torch.float16,
