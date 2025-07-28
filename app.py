@@ -12,13 +12,13 @@ ADAPTER_REPO = "saarah-a/falcon-finetuned"
 def load_model():
     is_cpu = not torch.cuda.is_available()
     
-        if is_cpu:
+    if is_cpu:
             # CPU fallback: no quantization
             base_model = AutoModelForCausalLM.from_pretrained(
                 BASE_MODEL,
                 device_map="auto",
             )
-        else:
+    else:
             # GPU with 4-bit quantization
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
