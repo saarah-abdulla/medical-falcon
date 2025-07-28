@@ -2,8 +2,10 @@ import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 from transformers import BitsAndBytesConfig
+from peft import PeftModel, PeftConfig
 
-MODEL_NAME = "saarah-a/falcon-finetuned"
+BASE_MODEL = "tiiuae/falcon-7b-instruct"
+ADAPTER_REPO = "saarah-a/falcon-finetuned"
 
 # Cache model to avoid reloading on every run
 @st.cache_resource
@@ -13,14 +15,15 @@ def load_model():
         bnb_4bit_compute_dtype=torch.float16,
         bnb_4bit_use_double_quant=True
     )
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME,
+      base_model = AutoModelForCausalLM.from_pretrained(
+        BASE_MODEL,
         device_map="auto",
         torch_dtype=torch.float16,
-        offload_folder="offload_dir",
-        quantization_config=bnb_config
+        quantization_config=bnb_config,
     )
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    model = PeftModel.from_pretrained(base_model, ADAPTER_REPO)
+    tokenizer = AutoTokenizer.from_pretrained(ADAPTER_REPO)
+
     return model, tokenizer
 
 # Avoid eager loading at the module level
