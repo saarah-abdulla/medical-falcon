@@ -10,11 +10,24 @@ ADAPTER_REPO = "saarah-a/falcon-finetuned"
 # Cache model to avoid reloading on every run
 @st.cache_resource
 def load_model():
-    bnb_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.float16,
-        bnb_4bit_use_double_quant=True
-    )
+    is_cpu = not torch.cuda.is_available()
+    
+        if is_cpu:
+            # CPU fallback: no quantization
+            base_model = AutoModelForCausalLM.from_pretrained(
+                BASE_MODEL,
+                device_map="auto",
+            )
+        else:
+            # GPU with 4-bit quantization
+            bnb_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4"  # nf4 works on GPU & CPU
+            )
+    
+
     base_model = AutoModelForCausalLM.from_pretrained(
         BASE_MODEL,
         device_map="auto",
