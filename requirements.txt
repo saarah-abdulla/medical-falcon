@@ -1,8 +1,5 @@
-torch --index-url https://download.pytorch.org/whl/cpu
-transformers
-accelerate
-bitsandbytes
-huggingface_hub
-safetensors
-peft
-streamlit
+streamlit>=1.32.0
+transformers>=4.39.0
+torch>=2.0.1
+accelerate>=0.21.0
+bitsandbytes>=0.41.0
